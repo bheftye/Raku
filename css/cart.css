@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* CSS Document */
+
+table.cartTable {
+	margin-left: 10%;
+	border-collapse: collapse;
+}
+.cartContainer {
+	height: 600px;
+	width: 900px;
+	margin-top: -3%;
+}
+th.encabezado {
+	font-family: 'Dosis', sans-serif;
+	color: #9bd3b0;
+	padding-right: 40px;
+	vertical-align: top;
+	font-weight: 500;
+	border-bottom: 1px solid #999;
+	text-align: center;
+	font-size:19px;
+}
+th.encabezado#producto {
+	padding-right: 440px;
+	vertical-align: top;
+	padding-left: 20px;
+	text-align: left;
+}
+td.producto {
+	padding-top: 10px;
+	height: 50px;
+	vertical-align: middle;
+}
+img.producto {
+	vertical-align: middle;
+	margin-right: 5px;
+	border-style: groove;
+	border-radius: 5px;
+	border: 3px solid #9bd3b0;
+	width: 50px;
+	height: 50px;
+}
+td.price, td.quantity, td.subtotal {
+	text-align: center;
+}
+td.total {
+	padding-top: 10px;
+	text-align: right;
+}
+td.numTotal {
+	padding-top: 10px;
+	text-align: center;
+}
+tr.final {
+	color: #9bd3b0;
+	vertical-align: top;
+	font-weight: normal;
+	border-bottom: 1px solid #999;
+	text-align: center;
+	margin-bottom: 10px;
+}
+input.btnAgregar {
+	width: 100px;
+	height: 30px;
+	margin: 10px 0px 0px 0px;
+	background: #9bd3b0;
+	border: none;
+	font-family: 'Dosis', sans-serif;
+	color: #FFF;
+	text-align: center;
+	border-radius: 5px;
+	font-size:18px;
+	font-weight:500;
+}
+td.agregar {
+	text-align: right;
+	padding-right: 20px;
+}
+input.btnAgregar:hover {
+	background: #3D8959;
+}
+.styled-select select {
+	width: auto;
+	height: auto;
+	overflow: hidden;
+	background: #999;
+	border: 1px solid #ccc;
+	color: #fff;
+	font-weight: bold;
+}

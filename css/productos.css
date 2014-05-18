@@ -1,0 +1,224 @@
+ @charset "utf-8";
+/* CSS Document */
+
+div.content {
+	padding-bottom: -60px;
+	height: 100%;
+	overflow: auto;
+	clear: none;
+	width: 80%;
+	float: left;
+	padding-left: 150px;
+	margin-top: -35px;
+}
+div.content-index {
+	padding-bottom: -60px;
+	height: 100%;
+	overflow: auto;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	clear: none;
+	width: 100%;
+	float: left;
+}
+h2 {
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+	font-size: 28px;
+	color: #9BD3B0;
+	text-transform: uppercase;
+	margin-bottom: 30px;
+}
+h4 {
+	font-family: 'Dosis', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	color: #999;
+	text-transform: uppercase;
+}
+form label {
+	font-family: 'Dosis', sans-serif;
+	font-weight: 300;
+	font-size: 16px;
+	color: #666;
+}
+form input[type="text"], form input[type="password"] {
+	border: hidden;
+	background-color: #afb1b3;
+	height: 30px;
+	color: #FFF;
+	width: 300px;
+	border-radius: 5px;
+	font-size: 12pt;
+	padding-left: 5px;
+	font-family: 'Dosis', sans-serif;
+}
+form input[type="text"]:hover, form input[type="text"]:focus, form input[type="password"]:hover, form input[type="password"]:focus {
+	background-color: #9bd3b0;
+}
+form textarea {
+	border: hidden;
+	background-color: #afb1b3;
+	color: #FFF;
+	width: 299px;
+	border-width: 2px;
+	border-radius: 5px;
+	font-size: 12pt;
+	font-family: 'Dosis', sans-serif;
+	padding-left: 5px;
+}
+form textarea:hover, form textarea:focus {
+	background-color: #9bd3b0;
+}
+table.alta {
+	margin: -40px auto;
+	left: 0;
+	right: 0;
+	border-collapse: collapse;
+}
+table.centered {
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+	border-collapse: collapse;
+	text-align: center;
+}
+table th {
+	color: #999;
+	border-bottom: solid #afb1b3 3px;
+	text-transform: uppercase;
+	font-weight: 600;
+}
+table td {
+	color: #999;
+	padding: 15px;
+	width: 200px;
+}
+table td.right {
+	margin-top: 20px;
+}
+table td a {
+	color: #999;
+	text-decoration: none;
+}
+table td a:hover {
+	text-decoration: underline;
+}
+td.delete {
+	text-align: center;
+	cursor: pointer;
+	color: red;
+	font-family: Alte Hass Grotesk;
+}
+td.edit {
+	color: blue;
+	cursor: pointer;
+	text-align: center;
+}
+td.ver-nota {
+	text-align: center;
+	cursor: pointer;
+}
+button.add-new {
+	float: right;
+	clear: both;
+	color: white;
+	background-color: #9bd3b0;
+	height: 50px;
+	font-size: 12pt;
+	border: hidden;
+	border-radius: 5px;
+	cursor: pointer;
+	font-family: 'Dosis', sans-serif;
+	text-transform: uppercase;
+}
+button.add-new:hover {
+	background-color: #3d8959;
+}
+form input[type="submit"], form button[type="submit"] {
+	color: white;
+	height: 50px;
+	width: 150px;
+	background-color: #9bd3b0;
+	font-size: 14pt;
+	border: hidden;
+	border-radius: 5px;
+	cursor: pointer;
+	font-family: 'Dosis', sans-serif;
+	text-transform: uppercase;
+	float: right;
+}
+form input[type="submit"]:hover, form button[type="submit"]:hover {
+	background-color: #3d8959;
+}
+form input[type="submit"].alta_cliente {
+	float: left;
+}
+#file_browse_wrapper {
+	width: 100px;
+	height: 30px;
+	background: url('../images/file_browse_normal.png') 0 0 no-repeat;
+	border: none;
+	overflow: hidden;
+	margin-bottom: -5px;
+}
+#file_browse_wrapper:hover {
+	background: url('../images/file_browse_hover.png') 0 0 no-repeat;
+}
+p.user, a.user {
+	text-decoration: none;
+	color: white;
+	font-size: 12pt;
+	float: right;
+	text-transform: uppercase;
+	font-family: 'Dosis', sans-serif;
+	margin-top: 15px;
+	margin-left: -1.7px;
+}
+div.centered-container {
+	max-width: 960px;
+	min-width: 960px;
+	margin-left: auto;
+	margin-right: auto;
+}
+div.centered {
+	max-width: 400px;
+	min-width: 400px;
+	margin: 0 auto;
+	left: 0;
+	right: 0;
+}
+img.icon-edit {
+	width: 20px;
+	height: 20px;
+}
+tr.final {
+	border-top: solid 3px #999;
+}
+h5 {
+	font-family: 'Dosis', sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+	color: #999;
+	text-transform: uppercase;
+	margin-top: 50px;
+}
+#file_browse {
+	margin-left: -125px;
+	opacity: 0;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+ filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+}
+form input[type="file"] {
+	color: white;
+	height: 30px;
+	width: 100px;
+	background-color: #9bd3b0;
+	border: hidden;
+	border-radius: 5px;
+	cursor: pointer;
+	font-family: 'Dosis', sans-serif;
+	text-transform: uppercase;
+	float: right;
+}

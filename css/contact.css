@@ -1,0 +1,103 @@
+@charset "utf-8";
+/* CSS Document */
+@import url(http://fonts.googleapis.com/css?family=Dosis:400,300,200,500,600,700,800);
+
+img.map {
+	margin-left: 15px;
+}
+.wrapper {
+	width: 900px;
+	margin-left: 10%;
+	height: 400px;
+	margin-top: -5%;
+}
+.login-form {
+	width: 450px;
+	margin: 25px auto;
+	position: relative;
+	z-index: 5;
+}
+td {
+	vertical-align: top;
+}
+.login-form .content {
+	padding: 0 30px 25px 30px;
+}
+.login-form .content .input {
+	width: 300px;
+	height: 20px;
+	padding-left: 5px;
+	font-family: 'Dosis', sans-serif;
+	font-weight:100;
+		font-weight: 400;
+	font-size: 14px;
+	color: #FFF;
+	background: #AFB1B3;
+	border: none;
+	margin-bottom: 5px;
+}
+.login-form .content .message {
+	width: 360px;
+	height: 300px;
+	padding-left: 5px;
+	font-family: 'Dosis', sans-serif;
+	font-weight:100;	font-weight: 400;
+	font-size: 14px;
+	color: #FFF;
+	background: #AFB1B3;
+	border: none;
+	margin-top: 8px;
+	vertical-align: bottom;
+	overflow: hidden;
+}
+.login-form .content .input:hover, .login-form .content .input:focus {
+	background: #9bd3b0;
+}
+.login-form .content .message:hover, .login-form .content .message:focus {
+	background: #9bd3b0;
+}
+td.linea {
+	border-right: #AFB1B3 solid 1px;
+}
+/* Login button */
+input.btn {
+	width: 140px;
+	height: 30px;
+	margin-left: 255px;
+	background: #9bd3b0;
+	border: none;
+	margin-top: -15px;
+	font-family: 'Dosis', sans-serif;
+	font-weight:500;	color: #FFF;
+	border-radius: 5px;
+	font-size:16px;
+	
+}
+input.btn:hover {
+	background: #3D8959;
+}
+h2.titulo {
+	font-family: 'Dosis', sans-serif;
+	font-weight: 100;
+	color: #9bd3b0;
+	font-weight: normal;
+	text-align: left;
+	margin-left: 15px;
+}
+h2.titleUser {
+	font-family: 'Dosis', sans-serif;
+	color: #9bd3b0;
+	font-weight: normal;
+	text-align: left;
+	margin-left: 15px;
+	margin-top: -10px;
+}
+p {
+	margin-left: 15px;
+}
+img.paypal {
+	width: 180px;
+	height: 100px;
+	margin-left: 5px;
+	margin-top: -30px;
+}

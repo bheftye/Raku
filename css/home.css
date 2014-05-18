@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+
+table.oneProductTable, table.thumbnails {
+	margin-left: 5.5%;
+}
+img.thumbnails {
+	margin-right: 7px;
+	border: thick #000;
+	border-style: groove;
+	border-radius: 5px;
+	border: 3px solid #9bd3b0;
+	height: 100px;
+	width: 100px;
+}
+img.bigImage {
+	border-style: groove;
+	border-radius: 5px;
+	border: 3px solid #9bd3b0;
+	height: 450px;
+	width: 450px;
+}
+.productContainer {
+	height: 600px;
+	margin-top: -3%;
+}
+td.descripProduc {	
+	font-family: 'Dosis', sans-serif;
+	font-weight:600;
+	color: #89CBA2;
+	padding-left: 40px;
+	vertical-align: top;
+}
+input.campoCt {
+	width: 40px;
+	margin: 5px 0px 0px 10px;
+	background-color: #F7F7F7;
+	border: 1px solid #999;	font-family: 'Dosis', sans-serif;
+
+	color: #727272;
+}
+input.btnAgregar {
+	width: 140px;
+	height: 30px;
+	margin: 10px 0px 0px 0px;
+	background: #AFB1B3;
+	border: none;	font-family: 'Dosis', sans-serif;
+
+	color: #FFF;
+	border-radius: 5px;
+}
+input.btnAgregar:hover {
+	background: #4B4B4B;

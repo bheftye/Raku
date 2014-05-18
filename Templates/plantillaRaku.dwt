@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- TemplateBeginIf cond="_document['MenuAdministrador']" -->
+<link href="../css/styleAdmin.css" rel="stylesheet" type="text/css">
+<!-- TemplateEndIf -->
+<!-- TemplateBeginIf cond="_document['MenuUsuario']" -->
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+<!-- TemplateEndIf --><link rel="icon" type="image/png" href="../images/favicon_raku.png">
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>Raku</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<script language="JavaScript" src="../js/javascript.js" type="text/javascript"></script>
+<!-- TemplateEndEditable -->
+<!-- TemplateParam name="MenuAdministrador" type="boolean" value="false" -->
+<!-- TemplateParam name="MenuUsuario" type="boolean" value="true" -->
+</head>
+
+<body>
+<!-- Header -->
+<div id="header" class="container">
+  <div id="logo">
+      <!-- TemplateBeginIf cond="_document['MenuAdministrador']" --> 
+    <h1><a href="index.html"><img src="../images/RAKU-WEB2_02.png" alt="Raku" title="Raku"/></a></h1>
+	  <!-- TemplateEndIf --> 
+      <!-- TemplateBeginIf cond="_document['MenuUsuario']" --> 
+    <h1><a href="../index.html"><img src="../images/RAKU-WEB2_02.png" alt="Raku" title="Raku"/></a></h1>
+	  <!-- TemplateEndIf --> 
+
+  </div>
+  <div id="menu">
+      <p id="user" class="login"><!-- TemplateBeginEditable name="login" --><a href="login.html">LOG IN / REGISTER</a><!-- TemplateEndEditable --></p>
+    <div class="line"></div>
+    <ul>
+      <!-- TemplateBeginIf cond="_document['MenuAdministrador']" --> 
+	  <!-- TemplateBeginEditable name="tab1" -->
+      <li><a href="#">MIND</a></li>
+      <li><a href="#">BODY</a></li>
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">LITTLE ONE</a></li>
+      <li><a href="#">PRODUCTOS</a></li>
+      <li><a href="#">CLIENTES</a></li>
+      <li><a href="#">NEWSLETTER</a></li>
+      <li><a href="#">VENTAS</a></li>
+       <!-- TemplateEndEditable --> 
+	  <!-- TemplateEndIf --> 
+      
+	  <!-- TemplateBeginIf cond="MenuUsuario" --> 
+	  <!-- TemplateBeginEditable name="tab2" -->
+      <li class="current_page_item"><a href="#">RAKU</a></li>
+      <li><a href="#">MIND</a></li>
+      <li><a href="#">BODY</a></li>
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">LITTLE ONE</a></li>
+      <li><a href="#">CART</a></li>
+      <li><a href="#">CONTACT</a></li>
+      <!-- TemplateEndEditable --> 
+	  <!-- TemplateEndIf -->
+    </ul>
+  </div>
+</div>
+<!--  --> 
+<!-- Content --> 
+<!-- TemplateBeginEditable name="contenido" -->
+<div class="contentContainer"></div>
+<!-- TemplateEndEditable --> 
+<!--  --> 
+
+<!--Footer -->
+<div class="footer">
+  <div class="lineFooter"></div>
+  <div id="menuFooter">
+    <ul>
+      <!-- TemplateBeginEditable name="tab13" -->
+      <li><a href="#">SHIPPING</a></li>
+      <li><a href="#">RETURNS AND EXCHANGES</a></li>
+      <li><a href="#">ORDER STATUS</a></li>
+      <!-- TemplateEndEditable -->
+    </ul>
+  </div>
+  <div class="socialMedia"> <img name="facebook" id="facebook" src="../images/facebook_normal.png" alt="Facebook" title="Facebook"/> <img name="instagram" id="instagram" src="../images/insta_normal.png" alt="Instagram" title="Instagram"/> <img name="pinterest" id="pinterest" src="../images/pinte_normal.png" alt="Pinterest" title="Pinterest"/> </div>
+</div>
+<!--  -->
+</body>
+</html>

@@ -1,36 +1,52 @@
-function GetCookie (name, InCookie) {
-	var prop = name + "=";
-	var plen = prop.length;
-	var clen = InCookie.length;
-	var i=0;
-	if (clen>0) { 
-		i = InCookie.indexOf(prop,0);
-		if (i!=-1) { 
-			j = InCookie.indexOf(";",i+plen);
-			if(j!=-1)
-				return unescape(InCookie.substring(i+plen,j));
-			else
-				return unescape(InCookie.substring(i+plen,clen));
+window.onload = function(){
+
+	//var htmlProductos = crearHTMLProductosDelCarrito();
+	//document.getElementById("tabla_carrito").innerHTML = htmlProductos;
+	document.getElementById("payBtn").onclick = redirigeAPagar;
+
+};
+
+function redirigeAPagar(){
+	window.location.href = "pago.html";
+}
+
+function crearHTMLProductosDelCarrito(){
+	var htmlProductos = "<tr>"+
+          "<th class=\"encabezadoº\"> "+
+            "</td>"+
+          "<th class=\"encabezado\">PRICE"+
+            "</td>"+
+          "<th class=\"encabezado\">QUANTITY"+
+            "</td>"+
+          "<th class=\"encabezado\">SUBTOTAL"+
+            "</td>"+
+          "<th class=\"encabezado\"> </td>"+
+        "</tr>";
+
+    var total = 0;
+	productos = GetCookie("productos",document.cookie);
+	if (productos == "")
+		alert("La canasta de compras está vacía");
+	else{
+		productos = Number(productos);
+		for(i = 1; i <= productos; i ++){
+			id = Number(GetCookie("prod" + i, document.cookie));
+			cantidad = Number(GetCookie("cant" + i, document.cookie));
+			htmlProductos+="<tr>"+
+					          "<td class=\"producto\"><img class=\"producto\" src=\"../images/productos/muneca_trapo_cuarto_tmb.jpg\"/> MUÑECAS DE TRAPO </td>"+
+					          "<td class=\"price\">$250.00</td>"+
+					          "<td class=\"quantity\">"+
+					          "<div class=\"styled-select\"><select>"+
+					              "<option>1</option>"+
+					              "<option>2</option>"+
+					              "<option>3</option>"+
+					            "</select></div></td>"+
+					          "<td class=\"subtotal\">$500.00</td>"+
+					          "<td class=\"subtotal\"><img src=\"../images/removeCart.png\" width=\"25px\" height=\"25px\"/></td>"+
+					        "</tr>";
+
 		}
-		else
-			return "";
 	}
-	else
-		return "";
-}
 
-function SetCookie (name, value) {
-	var argv = SetCookie.arguments;
-	var argc = SetCookie.arguments.length;
-	var expires = (argc > 2) ? argv[2] : null;
-	var path = (argc > 3) ? argv[3] : null;
-	var domain = (argc > 4) ? argv[4] : null;
-	var secure = (argc > 5) ? argv[5] : false;
-	document.cookie = name + "=" + escape(value) +
-		((expires==null) ? "" : ("; expires=" + expires.toGMTString())) +
-		((path==null) ? "" : (";path=" + path)) +
-		((domain==null) ? "" : ("; domain=" + domain)) +
-		((secure==true) ? "; secure" : "");
+	return htmlProductos;
 }
-
-function 

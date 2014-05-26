@@ -181,6 +181,11 @@ p.login:hover {
 	list-style: none;
 	line-height: normal;
 }
+
+.nombre_producto{
+	color:#979A9D;
+}
+
 #menuFooter li {
 	float: left;
 	margin-right: 6%;
@@ -275,4 +280,9 @@ h3 {
 	font-family: 'Dosis', sans-serif;
 	font-weight:bold;
 	margin-left:10px;
+}
+
+#imagenGrande{
+	max-height: 600px ;
+	max-width: 600px ;
 }

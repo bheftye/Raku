@@ -277,3 +277,10 @@ h3 {
 	font-weight:bold;
 	margin-left:10px;
 }
+#imagenGrande{
+	max-height: 600px ;
+	max-width: 600px ;
+}
+.nombre_producto{
+	color:#979A9D;
+}

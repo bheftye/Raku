@@ -7,6 +7,12 @@
 	margin-left: 10%;
 	height: 400px;
 }
+
+p.error{
+	color:red;
+	font-size: 10pt;
+}
+
 .login-form {
 	width: 450px;
 	margin: 0 auto;
@@ -42,7 +48,23 @@
 	background: #AFB1B3;
 	border: 1px solid #fff;
 	border-radius: 5px;
+
 }
+
+	-webkit-input-placeholder { /* WebKit browsers */
+	    color:    #fff;
+	}
+	:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	    color:    #fff;
+	    opacity:  1;
+	}
+	::-moz-placeholder { /* Mozilla Firefox 19+ */
+	    color:    #fff;
+	    opacity:  1;
+	}
+	:-ms-input-placeholder { /* Internet Explorer 10+ */
+	    color:    #fff;
+	}
 
 .login-form .content .input:hover {
 	background: #9bd3b0;
@@ -54,7 +76,7 @@ td.linea {
 	border-right: #AFB1B3 solid 1px;
 }
 /* Login button */
-input.btn {
+button.btn {
 	padding: 11px 25px;
 	margin-left: 150px;
 	font-family: 'Dosis', sans-serif;
@@ -65,6 +87,10 @@ input.btn {
 	border: none;
 	border-radius: 5px;
 }
-input.btn:hover {
+button.btn:hover {
 	background: #3D8959;
+}
+
+.footer{
+	margin-top:50px;
 }

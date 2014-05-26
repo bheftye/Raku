@@ -9,7 +9,7 @@ function init(){
 	document.getElementById("instagram").onclick = instaOnClick;
 	pinteHandler();
 	document.getElementById("pinterest").onclick = pinteOnClick;
-	imageHandler();
+	//imageHandler();
 	changeTop();
 	 }
 	 
@@ -48,6 +48,30 @@ function init(){
  function pinteOnClick(){
  	window.open("http://pinterest.com");
  }
+ 
+ /*function imageHandler(){
+	 var imagenGrande = document.getElementById("imagenGrande");
+	 var thumb1 = document.getElementById("thumb1");
+	 var thumb2 = document.getElementById("thumb2");
+	 var thumb3 = document.getElementById("thumb3");
+	 var thumb4 = document.getElementById("thumb4");
+	 thumb1.onclick = function(){
+		imagenGrande.src = "../images/productos/muneca_trapo_principal.jpg";
+		verImagen("../images/productos/muneca_trapo_principal.jpg");
+	};	
+	 thumb2.onclick = function(){
+		imagenGrande.src = "../images/productos/muneca_trapo_segundo.jpg";
+		verImagen("../images/productos/muneca_trapo_segundo.jpg");
+	};
+	 thumb3.onclick = function(){
+		imagenGrande.src = "../images/productos/muneca_trapo_tercero.jpg";
+		verImagen("../images/productos/muneca_trapo_tercero.jpg");
+	};
+	 thumb4.onclick = function(){
+		imagenGrande.src = "../images/productos/muneca_trapo_cuarto.jpg";
+		verImagen("../images/productos/muneca_trapo_cuarto.jpg");
+	};
+	 }*/
 
  function GetCookie (name, InCookie) {
 	var prop = name + "=";
@@ -88,7 +112,7 @@ function changeTop(){
 		 var username = GetCookie("username",document.cookie);
 		 if(username == 0){
 			 }else{
-				top.innerHTML = "<a href='../login.html'>" + username + "</a><a href=\"../login.html\"> || CERRAR SESION</a>";
+				top.innerHTML = "<a href='perfil.html' style=\"display:inline\">" + username + "</a><a href=\"../login.html\" style=\"display:inline\"> || CERRAR SESION</a>";
 
 				 }
 	}

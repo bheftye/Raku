@@ -76,6 +76,7 @@ table.alta {
 	left: 0;
 	right: 0;
 	border-collapse: collapse;
+	overflow: auto;
 }
 table.centered {
 	margin: 0 auto;
@@ -136,7 +137,9 @@ button.add-new {
 button.add-new:hover {
 	background-color: #3d8959;
 }
-form input[type="submit"], form button[type="submit"] {
+
+
+form input[type="submit"], form button[type="submit"], form button[type="button"] {
 	color: white;
 	height: 50px;
 	width: 150px;
@@ -148,8 +151,9 @@ form input[type="submit"], form button[type="submit"] {
 	font-family: 'Dosis', sans-serif;
 	text-transform: uppercase;
 	float: right;
+	left:10px;
 }
-form input[type="submit"]:hover, form button[type="submit"]:hover {
+form input[type="submit"]:hover, form button[type="submit"]:hover,form button[type="button"]:hover {
 	background-color: #3d8959;
 }
 form input[type="submit"].alta_cliente {
@@ -204,7 +208,7 @@ h5 {
 	text-transform: uppercase;
 	margin-top: 50px;
 }
-#file_browse {
+.file_browser {
 	margin-left: -125px;
 	opacity: 0;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";

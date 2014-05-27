@@ -1,13 +1,18 @@
 <?php
   include_once("funcionesphp/controlador_usuario.php");
   include_once("funcionesphp/ruta_general.php");
+  require_once("funcionesphp/controlador_producto.php");
   $nomUsuario = "";
   session_start();
   if(isset($_SESSION["idUsuario"])){
     $nomUsuario = $_SESSION["nomUsuario"];
     if($_SESSION["status"] == 0)
-    header("Location:".MI_RUTA."cp/index.php");
+    header("Location:".MI_RUTA."index.php");
   }
+
+  $productos = array();
+  $controladorProducto = new ControladorProducto();
+  $productos = $controladorProducto -> obtenerProductos();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/plantillaRaku.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -24,6 +29,28 @@
 <link href="css/cart.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" src="js/javascript.js" type="text/javascript"></script>
 <script language="JavaScript" src="js/funciones_carrito.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+var productos = new Array();
+
+  <?php 
+  foreach ($productos as $producto) {
+      //Producto(clave, nombre, disenador, piezasDisp,precio,categoria,imagenPrincipal,imagenesSecunadarias)
+      $productoString = "productos.push(new Producto(".json_encode($producto -> getClave()).",".json_encode($producto -> getNombre()).",".json_encode($producto -> getDisenador()).",".json_encode($producto -> getNumDisponible()).",".json_encode($producto -> getPrecio()).",".json_encode($producto -> getCategoria()).",".json_encode($producto -> getImagenPrincipal()).",";
+      $imagenesSecunadariasString = "new Array(";
+        for($i = 0; $i < count($producto -> getImagenes()); $i++){
+          $imagen = $producto -> getImagenes()[$i];
+          $imagenesSecunadariasString.=json_encode($imagen);
+          if($i + 1 < count($producto -> getImagenes())){
+            $imagenesSecunadariasString.=",";
+          }
+        }
+      $imagenesSecunadariasString.=")));";
+      $productoString .= $imagenesSecunadariasString;
+      echo $productoString;
+    }
+  ?>
+</script>
+
 <!-- InstanceEndEditable -->
 <!-- InstanceParam name="MenuAdministrador" type="boolean" value="false" -->
 <!-- InstanceParam name="MenuUsuario" type="boolean" value="true" -->
@@ -65,7 +92,7 @@
 <div class="contentContainer">
   <div class="cartContainer">
     <form action="#" id="infoPedido" >
-      <table id="tabla_carrito" class="cartTable">
+      <table id="tabla_carrito" style="width:100%" class="cartTable">
         <tr>
           <th class="encabezado" id="producto"> PRODUCT
             </td>
@@ -77,56 +104,11 @@
             </td>
           <th class="encabezado"> </td>
         </tr>
-        <tr>
-          <td class="producto"><img class="producto" src="images/productos/muneca_trapo_cuarto_tmb.jpg"/> MUÑECAS DE TRAPO </td>
-          <td class="price">$250.00</td>
-          <td class="quantity">
-          <div class="styled-select"><select>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select></div></td>
-          <td class="subtotal">$500.00</td>
-          <td class="subtotal"><img src="images/removeCart.png" width="25px" height="25px"/></td>
-        </tr>
-        <tr class="final">
-          <td><br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td class="total">TOTAL</td>
-          <td class="numTotal">$500.00</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td class="agregar" colspan="2"><input type="button" name="payBtn" id="payBtn" value="PAY" class="btnAgregar">
-        </tr>
       </table>
     </form>
   </div>
 </div>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+
 <!-- InstanceEndEditable --> 
 <!--  --> 
 

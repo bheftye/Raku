@@ -81,7 +81,7 @@ function agregarProductoAlCarrito(){
 		if (productos == "") productos = 0;
 		productos = Number(productos) + 1;
 		SetCookie("productos",productos);
-		SetCookie("id"+productos,idProducto);
+		SetCookie("id"+productos,clave);
 		alert("Product, added to cart.");
 		//SetCookie("cant" + productos,cantidad);
 	//}

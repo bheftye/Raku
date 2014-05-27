@@ -37,7 +37,7 @@ else{
 <link href="css/home.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" src="js/home2.js" type="text/javascript"></script>
 <script language="JavaScript" type="text/javascript">
-  var idProducto = <?php echo ($idProducto != 0)? json_encode($producto -> getIdProducto()):json_encode(0);?>;
+  var clave = <?php echo ($idProducto != 0)? json_encode($producto -> getClave()):json_encode(0);?>;
   var imagenesProducto = new Array();
   <?php
     if($idProducto != 0){

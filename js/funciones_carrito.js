@@ -58,13 +58,13 @@ function crearHTMLProductosDelCarrito(){
 							          "<td class=\"producto\"><img class=\"producto\" src=\"imagenesProductos/principales/"+producto.imagenPrincipal+"\"/>"+producto.nombre+" </td>"+
 							          "<td class=\"price\">$<span id=\"precio_"+i+"\">"+producto.precio+"</span> MXN</td>"+
 							          "<td class=\"quantity\">"+
-							           "<div class=\"styled-select\"><select onchange=\"calcularTotalAPagar()\" id=\"s_"+i+"\">";
+							           "<div class=\"styled-select\"><select name=\"cantidad"+i+"\" onchange=\"calcularTotalAPagar()\" id=\"s_"+i+"\">";
 					for (var j = 0; j <  producto.piezasDisp; j++) {
 					htmlProductos+= "<option value=\""+(j + 1)+"\">"+(j + 1)+"</option>";
 					};
 							         
 							            
-					htmlProductos+=   "</select></div></td>"+
+					htmlProductos+=   "</select></div><input type=\"hidden\" name=\"clave"+i+"\" value=\""+producto.clave+"\"></td>"+
 							          "<td class=\"subtotal\">$<span id=\"subtotal"+i+"\">"+producto.precio+"</span> MXN</td>"+
 							          "<td class=\"subtotal\"><img src=\"images/removeCart.png\" onclick=\"removerProducto('"+producto.clave+"')\" width=\"25px\" height=\"25px\"/></td>"+
 							        "</tr>";
@@ -77,15 +77,15 @@ function crearHTMLProductosDelCarrito(){
 				htmlProductos+=" <tr>"+
 						          "<td></td>"+
 						          "<td></td>"+
-						          "<td class=\"total\">TOTAL</td>"+
+						          "<td class=\"total\">TOTAL:</td>"+
 						          "<td class=\"numTotal\"><span id=\"total\"></span></td>"+
 						        "</tr>";
 
 				
 				htmlProductos+=" <tr>"+
 						          "<td></td>"+
-						          "<td></td>"+
-						          "<td class=\"agregar\" colspan=\"2\"><a href=\"pago.php\"><input type=\"button\" name=\"payBtn\" id=\"payBtn\" value=\"PAY\" class=\"btnAgregar\"></a>"+
+						          "<td><input type=\"hidden\" name=\"num_productos\" value=\""+productosCookie+"\"></td>"+
+						          "<td class=\"agregar\" colspan=\"2\"><button type=\"submit\" name=\"operacion\" id=\"payBtn\" value=\"guardar_compra\" class=\"btn\">PAY</button"+
 						        "</tr>";
 			}
 		}
@@ -189,4 +189,16 @@ function removerProducto(clave){
 		location.reload();
 	}
 	
+}
+
+function validarProductosEnCarrito(){
+	var productosCookie = GetCookie("productos",document.cookie);
+	if (productosCookie != ""){
+		productosCookie = Number(productosCookie);
+		if(productosCookie > 0){
+			return true;
+		}
+	}
+	alert("Cart is empty.");
+	return false;
 }

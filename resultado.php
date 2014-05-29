@@ -1,7 +1,7 @@
-<?php 
-  include_once("funcionesphp/controlador_producto.php");
+<?php
   include_once("funcionesphp/controlador_usuario.php");
   include_once("funcionesphp/ruta_general.php");
+  require_once("funcionesphp/controlador_producto.php");
   $nomUsuario = "";
   session_start();
   if(isset($_SESSION["idUsuario"])){
@@ -9,17 +9,16 @@
     if($_SESSION["status"] == 0)
     header("Location:".MI_RUTA."index.php");
   }
-   $productos = array();
-   $categoria = "";
-  if(isset($_REQUEST["c"])){
-    $categoria = strtoupper($_REQUEST["c"]);
+  $productos = array();
+  if(isset($_GET["bq"])){
+    $queryBuscar = $_GET["bq"];
     $controladorProducto = new ControladorProducto();
-    $productos = $controladorProducto -> obtenerProductosPorCategoria($categoria);
+    $productos = $controladorProducto -> obtenerProductosPorQueryBusqueda($queryBuscar);
   }
   else{
     header("Location:".MI_RUTA."index.php");
   }
-  
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/plantillaRaku.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -33,14 +32,15 @@
 <link rel="icon" type="image/png" href="images/favicon_raku.png">
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Raku</title>
-<link href="css/home.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="js/home.js" type="text/javascript"></script>
+<!-- InstanceEndEditable -->
+<!-- InstanceBeginEditable name="head" -->
+<link href="css/cart.css" rel="stylesheet" type="text/css">
 <script language="JavaScript" src="js/buscar.js" type="text/javascript"></script>
 <script language="JavaScript" src="js/redes_sociales.js" type="text/javascript"></script>
 
 
-<!-- InstanceEndEditable -->
-<!-- InstanceBeginEditable name="head" -->
+
+
 <!-- InstanceEndEditable -->
 <!-- InstanceParam name="MenuAdministrador" type="boolean" value="false" -->
 <!-- InstanceParam name="MenuUsuario" type="boolean" value="true" -->
@@ -57,16 +57,20 @@
 
   </div>
   <div id="menu">
-<p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline;" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php' style=\"margin-top:-25px;\">LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --><input id="txt_buscar" type="text" class="buscar"><input class="btnBuscar" value="SEARCH" id="btn_buscar" ></p>    <div class="line"></div>
+
+      <p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline;" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php' style=\"margin-top:-25px;\">LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --><input id="txt_buscar" type="text" class="buscar"><input class="btnBuscar" value="SEARCH" id="btn_buscar" ></p>
+
+    <div class="line"></div>
     <ul>
        
       
 	   
 	  <!-- InstanceBeginEditable name="tab2" -->
-      <li <?php echo ($categoria == "MIND")? "class='current_page_item'":"" ?>><a href="categoria.php?c=mind">MIND</a></li>
-      <li <?php echo ($categoria == "BODY")? "class='current_page_item'":"" ?>><a href="categoria.php?c=body">BODY</a></li>
-      <li <?php echo ($categoria == "HOME")? "class='current_page_item'":"" ?>><a href="categoria.php?c=home">HOME</a></li>
-      <li <?php echo ($categoria == "LITTLE ONE")? "class='current_page_item'":"" ?>><a href="categoria.php?c=little%20one">LITTLE ONE</a></li>
+      <li><a href="raku.php">RAKU</a></li>
+      <li><a href="categoria.php?c=mind">MIND</a></li>
+      <li><a href="categoria.php?c=body">BODY</a></li>
+      <li><a href="categoria.php?c=home">HOME</a></li>
+      <li><a href="categoria.php?c=little%20one">LITTLE ONE</a></li>
       <li><a href="cart.php">CART</a></li>
       <li><a href="contacto.php">CONTACT</a></li>
       <!-- InstanceEndEditable --> 
@@ -78,17 +82,36 @@
 <!-- Content --> 
 <!-- InstanceBeginEditable name="contenido" -->
 <div class="contentContainer">
-  <div class="containerHome">
-    <?php foreach ($productos as $producto) {
-        echo  "<a href=\"producto.php?idp=".$producto -> getIdProducto()."\"><div class=\"item\"> 
-                <img class=\"homeImage\" src=\"imagenesProductos/principales/".$producto -> getImagenPrincipal()."\">
-                <div class=\"nombre_producto\">".$producto -> getNombre()." $".$producto -> getPrecio()." MXN</div>
-              </div></a>";
-      }?>
+
+  <div class="cartContainer">
+    <form action="funcionesphp/controlador_operaciones.php" method="post" onsubmit="return validarProductosEnCarrito()" id="infoPedido" >
+      <table id="tabla_carrito" style="width:100%" class="cartTable">
+        <tr>
+          <th class="encabezado" id="producto"> PRODUCT
+            </td>
+          <th class="encabezado">PRICE
+            </td>
+          <th class="encabezado">AVAILABLE
+            </td>
+          </tr>
+        <?php
+
+            foreach ($productos as $producto) {
+                  $stringHTML = "<tr>
+                        <td class=\"producto\"><img class=\"producto\" src=\"imagenesProductos/principales/".$producto -> getImagenPrincipal()."\"/><a href=\"producto.php?idp=".$producto -> getIdProducto()."\">".$producto -> getNombre()."</a> </td>
+                        <td class=\"price\">$<span>".$producto ->getPrecio()."</span> MXN</td>
+                        <td class=\"quantity\">
+                        <div class=\"styled-select\"><span >".$producto -> getNumDisponible()."</span>
+                        </div>
+                      </tr>";
+                    echo $stringHTML;
+            }
+        ?>
+      </table>
+    </form>
   </div>
 </div>
-<br/>
-<br/>
+
 <!-- InstanceEndEditable --> 
 <!--  --> 
 

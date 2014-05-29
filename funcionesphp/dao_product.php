@@ -97,6 +97,28 @@ class DAOProducto
 		return $producto;
 	}
 
+	function obtenerProductoPorClave($claveProducto){
+		$sqlQuery = "SELECT * FROM productos WHERE clave = '". $claveProducto."'";
+		$this -> dbConnector -> prepararConector();
+		$producto = null;
+		$resultados = $this -> dbConnector -> ejecutarSelectQuery($sqlQuery);
+		while($fila = mysqli_fetch_array($resultados)){
+			$producto = $this -> llenarProductoConDatos($fila);
+		}
+		$this -> dbConnector -> cerrarConector();
+		return $producto;
+	}
+
+	function actualizarNumDisponibleProducto($idProducto, $nuevaCantidad){
+		$insercionExitosa = false;
+		$sqlQuery = "UPDATE `productos` SET `num_disponible`= '".$nuevaCantidad."' WHERE id_producto =".$idProducto;
+		$this -> dbConnector -> prepararConector();
+		if($this -> dbConnector -> ejecutarInsertUpdateDeleteQuery($sqlQuery)){
+			$insercionExitosa = true;
+		}
+		return $insercionExitosa;
+	}
+
 	private function obtenerImagenesSecundarias($idProducto){
 		$sqlQuery = "SELECT * FROM imagenes_productos WHERE id_producto = ". $idProducto;
 		$resultados = $this -> dbConnector -> ejecutarSelectQuery($sqlQuery);
@@ -136,7 +158,18 @@ class DAOProducto
 		return $productos;
 	}
 
-	function getAllProductsThatMatchSearchQuery($searchQuery){}
+	function obtenerProductosPorQueryBusqueda($queryBuscar){
+		$sqlQuery = "SELECT * FROM productos WHERE nombre like '%".$queryBuscar."%' or descripcion like '%".$queryBuscar."%' or disenador like '%".$queryBuscar."%' ORDER BY id_producto ASC";
+		$this -> dbConnector -> prepararConector();
+		$resultados = $this -> dbConnector -> ejecutarSelectQuery($sqlQuery);
+		$productos = array();
+		while($fila = mysqli_fetch_array($resultados)){
+			$producto = $this -> llenarProductoConDatos($fila);
+			array_push($productos, $producto);
+		}
+		$this -> dbConnector -> cerrarConector();
+		return $productos;
+	}
 
 }
 ?>

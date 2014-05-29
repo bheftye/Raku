@@ -15,13 +15,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 
-<link href="../css/style.css" rel="stylesheet" type="text/css">
-<link rel="icon" type="image/png" href="../images/favicon_raku.png">
+<link href="css/style.css" rel="stylesheet" type="text/css">
+<link href="css/login.css" rel="stylesheet" type="text/css">
+
+<link rel="icon" type="image/png" href="images/favicon_raku.png">
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Raku</title>
-<link rel="stylesheet" type="text/css" href="../css/contact.css">
-<script language="javascript" src="../js/pago.js" type="text/javascript"></script>
-<script language="javascript" src="../js/funciones_pago.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="css/contact.css">
+<script language="javascript" src="js/pago.js" type="text/javascript"></script>
+<script language="JavaScript" src="js/buscar.js" type="text/javascript"></script>
+<script language="JavaScript" src="js/redes_sociales.js" type="text/javascript"></script>
+
+
 
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
@@ -36,25 +41,24 @@
   <div id="logo">
        
        
-    <h1><a href="../index.html"><img src="../images/RAKU-WEB2_02.png" alt="Raku" title="Raku"/></a></h1>
+    <h1><a href="index.php"><img src="images/RAKU-WEB2_02.png" alt="Raku" title="Raku"/></a></h1>
 	   
 
   </div>
   <div id="menu">
-      <p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php'>LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --></p>
-    <div class="line"></div>
+<p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline;" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php' style=\"margin-top:-25px;\">LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --><input id="txt_buscar" type="text" class="buscar"><input class="btnBuscar" value="SEARCH" id="btn_buscar" ></p>    <div class="line"></div>
     <ul>
        
       
 	   
 	  <!-- InstanceBeginEditable name="tab2" -->
-      <li><a href="raku.html">RAKU</a></li>
-      <li><a href="mind.html">MIND</a></li>
-      <li><a href="body.html">BODY</a></li>
-      <li><a href="home.html">HOME</a></li>
-      <li><a href="littleone.html">LITTLE ONE</a></li>
-      <li><a href="cart.html">CART</a></li>
-      <li class="current_page_item"><a href="contacto.html">CONTACT</a></li>
+      <li><a href="raku.php">RAKU</a></li>
+      <li><a href="categoria.php?c=mind">MIND</a></li>
+      <li><a href="categoria.php?c=body">BODY</a></li>
+      <li><a href="categoria.php?c=home">HOME</a></li>
+      <li><a href="categoria.php?c=little%20one">LITTLE ONE</a></li>
+      <li class="current_page_item"><a href="cart.php">CART</a></li>
+      <li><a href="contacto.php">CONTACT</a></li>
       <!-- InstanceEndEditable --> 
 	  
     </ul>
@@ -64,84 +68,108 @@
 <!-- Content --> 
 <!-- InstanceBeginEditable name="contenido" -->
 <div class="wrapper">
+  <form name="login-form" style="margin-left:0;" class="login-form" action="nota.php" onsubmit="return validarCamposPago()" method="post">
   <table>
     <tr>
-      <td class="linea"><form name="login-form" class="login-form" action="#" method="post">
+      <td class="linea">
           <div class="content">
+
             <table>
               <tr>
-                <td colspan="2"><h2 class="titleUser">MAILING INFORMATION</h2></td>
+                  <p id="error" class="error"></p><br>
+                <td colspan="2"><h2 class="titleUser">SHIPPING INFORMATION</h2></td>
               </tr>
               <tr>
                 <td>NAME:</td>
-                <td><input id ="name" name="name" type="text" class="input" value="Brent Heftye" title="Names"/></td>
+                <td><input id ="nombre_envio" name="nombre_envio" type="text" class="input" value="" title="Names"/></td>
               </tr>
               <tr>
                 <td>ADDRESS:</td>
-                <td><input id= "address" name="address" type="text" class="input" value = "C 24 #109 x 13 y 15" title="Address"/></td>
+                <td><input id= "direccion_envio" name="direccion_envio" type="text" class="input" value = "" title="Address"/></td>
               </tr>
               <tr>
                 <td>COUNTRY:</td>
-                <td><input id= "country" name="country" type="text" class="input" value="Mexico" title="Country"/></td>
+                <td><input id= "pais_envio" name="pais_envio" type="text" class="input" value="" title="Country"/></td>
               </tr>
               <tr>
                 <td>CITY:</td>
-                <td><input id= "city" name="city" type="text" class="input" value="Merida" title="City"/></td>
+                <td><input id= "ciudad_envio" name="ciudad_envio" type="text" class="input" value="" title="City"/></td>
               </tr>
               <tr>
                 <td> ZIP-CODE:</td>
-                <td><input id= "zipcode" name="zipcode" type="text" class="input" value="97139" title="zipcode"/></td>
+                <td><input id= "zip_envio" name="zip_envio" type="text" class="input" value="" title="zipcode"/><br>
+                    <a href="cart.php"><button type="button" name="operacion" value="realizar_compra" class="btn">CANCEL</button></a></td>
               </tr>
-              <tr>
-                <td colspan="2"><br/>
-                  <input id="checkoutBtn" type="submit" name="save" value="CHECKOUT" class="btn" />
+              <tr>                
+                <td>
+              </td>
               </tr>
             </table>
             <br><br>
-            <table>
+           
+          </div>
+        </td>
+      <td > 
+        <div class="content">
+        <table>
               <tr>
-                <td colspan="2"><h2 class="titleUser">BILLING INFORMATION OPTIONAL*</h2></td>
+                <td colspan="2"><h2 class="titleUser">CREDIT / DEBIT INFORMATION*</h2></td>
               </tr>
               <tr>
-                <td>NAME:</td>
-                <td><input id ="name_bill" name="name_bill" type="text" class="input" value="Brent Heftye" title="Names"/></td>
+                <td>FIRST NAME*</td>
+                <td><input id ="fname_card" name="fname_card" type="text" class="input" value="" title="First Name"/></td>
               </tr>
               <tr>
-                <td>RFC:</td>
-                <td><input id ="rfc_bill" name="rfc_bill" type="text" class="input" value="HESB101092RST01" title="RFC"/></td>
+                <td>LAST NAME*</td>
+                <td><input id= "lname_card" name="lname_card" type="text" class="input" value = "" title="Last Name"/></td>
               </tr>
               <tr>
-                <td>ADDRESS:</td>
-                <td><input id= "address_bill" name="address_bill" type="text" class="input" value = "C 24 #109 x 13 y 15" title="Address"/></td>
+                <td>CARD NUMBER</td>
+                <td><input id= "num_card" name="num_card" type="text" class="input" value = "" title="PHONE"/></td>
               </tr>
               <tr>
-                <td>PHONE NUMBER:</td>
-                <td><input id= "phone_bill" name="phone_bill" type="text" class="input" value = "+52 1 (999)2920177" title="PHONE"/></td>
+                <td colspan="2">EXPIRATION DATE : MONTH
+                  <select id= "mes_card" name="mes_card">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                  </select>
+
+                  YEAR
+                  <select id= "year_card" name="year_card">
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                  </select>
+                </td>
               </tr>
               <tr>
-                <td>COUNTRY:</td>
-                <td><input id= "country" name="country" type="text" class="input" value="Mexico" title="Country"/></td>
-              </tr>
-              <tr>
-                <td>CITY:</td>
-                <td><input id= "city" name="city" type="text" class="input" value="Merida" title="City"/></td>
-              </tr>
-              <tr>
-                <td> ZIP-CODE:</td>
-                <td><input id= "zipcode" name="zipcode" type="text" class="input" value="97139" title="zipcode"/></td>
+                <td>SECURITY CODE:</td>
+                <td><input id= "code_card" name="code_card" type="text" class="input" value="" title="Security Code"/></td>
               </tr>
               <tr>
                 <td colspan="2"><br/>
-                  <input id="billBtn" type="button" name="bill" value="GENERATE BILL" class="btn" />
+                  <button id="" type="submit" name="operacion" value="realizar_compra" class="btn">PAY</button>
               </tr>
-            </table>
-          </div>
-        </form></td>
-      <td ><h2 class="titulo">PAYMENT</h2>
-        <a href="https://www.paypal.com/mx/webapps/mpp/home" target="_blank"> 
-        <img src="../images/checkoutpaypal.png" class="paypal" alt="PayPal" title="PayPal"/></a></td>
+            </table></div</td>
     </tr>
   </table>
+  </form>
 </div>
 <!-- InstanceEndEditable --> 
 <!--  --> 
@@ -156,7 +184,7 @@
       <!-- InstanceEndEditable -->
     </ul>
   </div>
-  <div class="socialMedia"> <img name="facebook" id="facebook" src="../images/facebook_normal.png" alt="Facebook" title="Facebook"/> <img name="instagram" id="instagram" src="../images/insta_normal.png" alt="Instagram" title="Instagram"/> <img name="pinterest" id="pinterest" src="../images/pinte_normal.png" alt="Pinterest" title="Pinterest"/> </div>
+  <div class="socialMedia"> <img name="facebook" id="facebook" src="images/facebook_normal.png" alt="Facebook" title="Facebook"/> <img name="instagram" id="instagram" src="images/insta_normal.png" alt="Instagram" title="Instagram"/> <img name="pinterest" id="pinterest" src="images/pinte_normal.png" alt="Pinterest" title="Pinterest"/> </div>
 </div>
 <!--  -->
 </body>

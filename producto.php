@@ -27,6 +27,7 @@ else{
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 <link href="css/styleAdmin.css" rel="stylesheet" type="text/css">
+<link href="css/login.css" rel="stylesheet" type="text/css">
 
 <link rel="icon" type="image/png" href="images/favicon_raku.png">
 <!-- InstanceBeginEditable name="doctitle" -->
@@ -49,6 +50,10 @@ else{
   ?>
 </script>
 <script language="JavaScript" src="js/funciones_productos.js" type="text/javascript"></script>
+<script language="JavaScript" src="js/buscar.js" type="text/javascript"></script>
+<script language="JavaScript" src="js/redes_sociales.js" type="text/javascript"></script>
+
+
 
 <!-- InstanceEndEditable -->
 <!-- InstanceParam name="MenuAdministrador" type="boolean" value="true" -->
@@ -66,8 +71,7 @@ else{
 
   </div>
   <div id="menu">
-      <p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline" href="../perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='../funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='../login.php'>LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --></p>
-    <div class="line"></div>
+<p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline;" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php' style=\"margin-top:-25px;\">LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --><input id="txt_buscar" type="text" class="buscar"><input class="btnBuscar" value="SEARCH" id="btn_buscar" ></p>    <div class="line"></div>
     <ul>
        
     <!-- InstanceBeginEditable name="tab1" -->

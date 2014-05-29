@@ -65,6 +65,18 @@
 			return $this -> daoProducto -> obtenerProductosPorCategoria($categoria);	
 		}
 
+		function obtenerProductoPorClave($claveProducto){
+			return $this -> daoProducto -> obtenerProductoPorClave($claveProducto);
+		}
+
+		function actualizarNumDisponibleProducto($idProducto, $nuevaCantidad){
+			return $this -> daoProducto -> actualizarNumDisponibleProducto($idProducto, $nuevaCantidad);
+		}
+
+		function obtenerProductosPorQueryBusqueda($queryBuscar){
+			return $this -> daoProducto -> obtenerProductosPorQueryBusqueda($queryBuscar);
+		}
+
 	}
 
 ?>

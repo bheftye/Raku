@@ -3,8 +3,13 @@
  window.onload= init;
 
 function init(){	
-	document.getElementById("form_register").onsubmit = validaCamposRegistro;
-	document.getElementById("form_login").onsubmit = validaCamposLogin;
+	document.getElementById("form_register").onsubmit = validarCamposRegistro;
+	document.getElementById("form_login").onsubmit = validarCamposLogin;
+	if(mensaje != ""){
+		if(mensaje == "loginfail"){
+			alert("Username or password incorrect.");
+		}
+	}
 	 }
  
 

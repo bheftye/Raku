@@ -55,7 +55,7 @@
 			$this -> status = $status;
 		}
 
-		function getActivo($status){
+		function getActivo(){
 			return $this -> status;
 		}
 	}

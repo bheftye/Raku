@@ -19,11 +19,20 @@
 
 
 <link href="css/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/login.css">
+
 <link rel="icon" type="image/png" href="images/favicon_raku.png">
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Raku</title>
+<script>
+  var mensaje = <?php echo (isset($_GET["mensaje"]))? json_encode($_GET["mensaje"]):json_encode("");?>
+</script>
 <script language="JavaScript" type="text/javascript" src="js/login.js"></script>
-<link rel="stylesheet" type="text/css" href="css/login.css">
+<script language="JavaScript" src="js/buscar.js" type="text/javascript"></script>
+<script language="JavaScript" src="js/redes_sociales.js" type="text/javascript"></script>
+
+
+
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <!-- InstanceEndEditable -->
@@ -42,8 +51,7 @@
 
   </div>
   <div id="menu">
-      <p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php'>LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --></p>
-    <div class="line"></div>
+    <p id="user" class="login"><!-- InstanceBeginEditable name="login" --><?php if(isset($_SESSION["nomUsuario"])) echo '<a style="display:inline;" href="perfil.php">'.strtoupper($nomUsuario)."/ <a style='display:inline;' class='logger' href='funcionesphp/controlador_operaciones.php?operacion=cerrar_sesion'>LOGOUT</a>"; else echo "<a href='login.php' style=\"margin-top:-25px;\">LOGIN / REGISTER</a>"?><!-- InstanceEndEditable --><input id="txt_buscar" type="text" class="buscar"><input class="btnBuscar" value="SEARCH" id="btn_buscar" ></p>    <div class="line"></div>
     <ul>
        
       

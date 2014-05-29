@@ -82,12 +82,25 @@ function SetCookie (name, value) {
 		((secure==true) ? "; secure" : "");
 }
 
-function changeTop(){
-		 var top = document.getElementById("user");
-		 var username = GetCookie("username",document.cookie);
-		 if(username == 0){
-			 }else{
-				top.innerHTML = "<a href='login.html'>" + username + " || CERRAR SESION</a>";
+function validarCamposPago(){
+	var nombre = document.getElementById("nombre_envio").value;
+	var direccion = document.getElementById("direccion_envio").value;
+	var pais = document.getElementById("pais_envio").value;
+	var ciudad = document.getElementById("ciudad_envio").value;
+	var zip = document.getElementById("zip_envio").value;
 
-				 }
+	var fname = document.getElementById("fname_card").value;
+	var lname = document.getElementById("lname_card").value;
+	var numCard = document.getElementById("num_card").value;
+	var mesCard = document.getElementById("mes_card").value;
+	var yearCard = document.getElementById("year_card").value;
+	var codeCard = document.getElementById("code_card").value;
+
+	var camposLlenos = nombre != "" && direccion != "" && pais != "" && ciudad != "" && zip != "" && fname != "" && lname != "" && numCard != "" && mesCard != "" && yearCard != "" && codeCard != "";
+
+	if(camposLlenos){
+		return true;
 	}
+	document.getElementById("error").innerHTML = "Fill all fields to continue";
+	return false;
+}

@@ -9,6 +9,7 @@
     header("Location:".MI_RUTA."index.php");
   }
   $tituloOperacion ="AGREGAR";
+  $operacion = "insertar_usuario";
   $idUsuario = 0;
   if(isset($_REQUEST["idu"])){
     $idUsuario = $_REQUEST["idu"];
@@ -71,7 +72,7 @@
       <label>E-mail</label><br>
         <input id="emailR" name="txt_email" type="text" value="<?php echo ($idUsuario != 0)? $usuario -> getEmail():""?>"></input><br><br>
         <label>Contraseña</label><br>
-        <input id="passR" name="txt_pass" type="password" value="<?php echo ($idUsuario != 0)? $usuario -> getContrasena():""?>"></input><br><br>
+        <input id="passR" name="txt_pass" type="password" value=""></input><br><br>
         <label>Confirmar Contraseña</label><br>
         <input id="passR2" name="txt_pass2" type="password" value=""></input><br><br>
           <input type="hidden" name="id_u" value="<?php echo ($idUsuario != 0)? $usuario -> getIdUsuario():""?>" >

@@ -10,9 +10,6 @@
     header("Location:".MI_RUTA."index.php");
   }
 
-  $productos = array();
-  $controladorProducto = new ControladorProducto();
-  $productos = $controladorProducto -> obtenerProductos();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><!-- InstanceBegin template="/Templates/plantillaRaku.dwt" codeOutsideHTMLIsLocked="false" -->
@@ -29,37 +26,10 @@
 <!-- InstanceEndEditable -->
 <!-- InstanceBeginEditable name="head" -->
 <link href="css/cart.css" rel="stylesheet" type="text/css">
-<script language="JavaScript" src="js/funciones_carrito.js" type="text/javascript"></script>
 <script language="JavaScript" src="js/buscar.js" type="text/javascript"></script>
 <script language="JavaScript" src="js/redes_sociales.js" type="text/javascript"></script>
 
-<script language="javascript" type="text/javascript">
 
-var productos = new Array();
-
-var mensaje = <?php echo json_encode($_GET["mensaje"]);?>;
-if(mensaje == "gracias_comprar"){
-  alert("Thank you for buying!");
-  Vaciar();
-}
-  <?php 
-  foreach ($productos as $producto) {
-      //Producto(clave, nombre, disenador, piezasDisp,precio,categoria,imagenPrincipal,imagenesSecunadarias)
-      $productoString = "productos.push(new Producto(".json_encode($producto -> getClave()).",".json_encode($producto -> getNombre()).",".json_encode($producto -> getDisenador()).",".json_encode($producto -> getNumDisponible()).",".json_encode($producto -> getPrecio()).",".json_encode($producto -> getCategoria()).",".json_encode($producto -> getImagenPrincipal()).",";
-      $imagenesSecunadariasString = "new Array(";
-        for($i = 0; $i < count($producto -> getImagenes()); $i++){
-          $imagen = $producto -> getImagenes()[$i];
-          $imagenesSecunadariasString.=json_encode($imagen);
-          if($i + 1 < count($producto -> getImagenes())){
-            $imagenesSecunadariasString.=",";
-          }
-        }
-      $imagenesSecunadariasString.=")));";
-      $productoString .= $imagenesSecunadariasString;
-      echo $productoString;
-    }
-  ?>
-</script>
 
 <!-- InstanceEndEditable -->
 <!-- InstanceParam name="MenuAdministrador" type="boolean" value="false" -->
@@ -113,7 +83,53 @@ if(mensaje == "gracias_comprar"){
             </td>
           <th class="encabezado"> </td>
         </tr>
+        <?php
+
+        $productos = array();
+        if(isset($_SESSION["productos_carrito"])){
+          $numProductos = $_SESSION["productos_carrito"];
+          if($numProductos > 0){
+            $total = 0;
+            for($i = 1; $i <= $numProductos; $i++) {
+              if(isset($_SESSION["clave".$i]) && isset($_SESSION["cantidad".$i])){
+                $claveProducto = $_SESSION["clave".$i];
+                $cantidad = $_SESSION["cantidad".$i];
+                $controladorProducto = new ControladorProducto();
+                $producto = $controladorProducto -> obtenerProductoPorClave($claveProducto);
+                if($producto != null){
+                  $subtotal = $cantidad * $producto -> getPrecio();
+                  $total += $subtotal;
+                  $stringHTML = "<tr>
+                        <td class=\"producto\"><img class=\"producto\" src=\"imagenesProductos/principales/".$producto -> getImagenPrincipal()."\"/>".$producto -> getNombre()." </td>
+                        <td class=\"price\">$<span id=\"precio_".$i."\">".$producto ->getPrecio()."</span> MXN</td>
+                        <td class=\"quantity\">
+                        <div class=\"styled-select\"><span name=\"cantidad".$i."\" id=\"s_".$i."\">".$cantidad."</span>
+                        </div><input type=\"hidden\" name=\"clave".$i."\" value=\"".$producto ->getClave()."\"></td>
+                        <td class=\"subtotal\">$<span id=\"subtotal".$i."\">".$subtotal."</span> MXN</td>
+                        <td class=\"subtotal\"></td>
+                      </tr>";
+                    echo $stringHTML;
+                }
+              }
+            }
+            echo "  <tr>
+                      <td></td>
+                      <td></td>
+                      <td class=\"total\">TOTAL:</td>
+                      <td class=\"numTotal\"><span id=\"total\">$".$total." MXN</span></td>
+                    </tr>";
+
+        
+            echo " <tr>
+                  <td></td>
+                  <td></td>
+                  <td class=\"agregar\" colspan=\"2\"><button type=\"submit\" name=\"operacion\" id=\"payBtn\" value=\"realizar_compra\" class=\"btn\">FINISH PAYMENT</button>
+                </tr>";
+          }
+        }
+        ?>
       </table>
+          <a href="cart.php"><button type="button" type="btn" class="btn">CANCEL</button></a>
     </form>
   </div>
 </div>

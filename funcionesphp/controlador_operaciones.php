@@ -4,6 +4,8 @@
 	include_once("controlador_producto.php");
 	include_once("controlador_usuario.php");
 	include_once("ruta_general.php");
+	include_once('class.phpmailer.php');
+
 	if(isset($_REQUEST["operacion"])){
 		$operacion = $_REQUEST["operacion"];
 		switch($operacion){
@@ -42,6 +44,15 @@
 				break;
 			case "eliminar_usuario_por_admin":
 				eliminarUsuarioPorAdmin();
+				break;
+			case "guardar_compra":
+				guardarCompra();
+				break;
+			case "realizar_compra":
+				realizarCompra();
+				break;
+			case "enviar_correo":
+				enviarCorreo();
 				break;
 		}
 	}
@@ -183,6 +194,7 @@
 	}
 
 	function insertarUsuario(){
+		session_start();
 		$nomUsuario = isset($_REQUEST["txt_usuario"])? $_REQUEST["txt_usuario"]: "";
 		$contrasena = isset($_REQUEST["txt_pass"])? $_REQUEST["txt_pass"]: "";
 		$email = isset($_REQUEST["txt_email"])? $_REQUEST["txt_email"]:"";
@@ -190,11 +202,23 @@
 		$controladorUsuario = new ControladorUsuario();
 		$insercionExitosa = $controladorUsuario -> agregarUsuario($usuario);
 		if(!$insercionExitosa || $usuario -> getIdUsuario() == 0){
-			header("Location: ".MI_RUTA."login.php?er=fail&mensaje=failagregado");
-			exit();
+			if(isset($_SESSION["status"]) && $_SESSION["status"] == 0){
+				header("Location: ".MI_RUTA."cp/usuarios.php?er=fail&mensaje=Fallo%20agregar%20usuario");
+				exit();
+			}
+			else{
+				header("Location: ".MI_RUTA."login.php?er=fail&mensaje=Register%20Failed");
+				exit();
+			}
 		}
-
-		header("Location: ".MI_RUTA."/login.php?er=success&mensaje=successagregado");
+		if(isset($_SESSION["status"]) && $_SESSION["status"] == 0){
+				header("Location: ".MI_RUTA."cp/usuarios.php?er=success&mensaje=Exito%20al%20agregar%20usuario");
+				exit();
+			}
+			else{
+				header("Location: ".MI_RUTA."login.php?er=success&mensaje=Register%20Successful");
+				exit();
+			}
 
 	}
 
@@ -316,6 +340,56 @@
 		}
 	}
 
+	function guardarCompra(){
+		if(isset($_REQUEST["num_productos"])){
+			session_start();
+			$numProductos = $_REQUEST["num_productos"];
+			$_SESSION["productos_carrito"]= $numProductos;
+			for($i = 1; $i <= $numProductos; $i++) {
+				if(isset($_REQUEST["clave".$i]) && isset($_REQUEST["cantidad".$i])){
+					$claveProducto = $_REQUEST["clave".$i];
+					$cantidad = $_REQUEST["cantidad".$i];
+						$_SESSION["clave".$i] = $claveProducto;
+						$_SESSION["cantidad".$i] = $cantidad;
+				}
+			}
+			header("Location:".MI_RUTA."pago.php");
+			exit();
+		}
+		header("Location:".MI_RUTA."cart.php");
+	}
+
+	function realizarCompra(){
+		session_start();
+		if(isset($_SESSION["productos_carrito"])){
+			$numProductos = $_SESSION["productos_carrito"];
+			for($i = 1; $i <= $numProductos; $i++) {
+				if(isset($_SESSION["clave".$i]) && isset($_SESSION["cantidad".$i])){
+					$claveProducto = $_SESSION["clave".$i];
+					$cantidad = $_SESSION["cantidad".$i];
+					$controladorProducto = new ControladorProducto();
+					$producto = $controladorProducto -> obtenerProductoPorClave($claveProducto);
+					if($producto != null){
+						$cantidadDisponible = $producto -> getNumDisponible();
+						$cantidadNueva = $cantidadDisponible - $cantidad;
+						if($cantidadNueva >= 0){
+							$controladorProducto -> actualizarNumDisponibleProducto($producto -> getIdProducto(), $cantidadNueva);
+						}
+						else{
+							header("Location:".MI_RUTA."cart.php?err=fail&mensaje=fail_comprar_cantidad_-0");
+						}
+					}
+					else{
+						header("Location:".MI_RUTA."cart.php?err=fail&mensaje=fail_comprar_producto_null");
+					}
+				}
+			}
+			header("Location:".MI_RUTA."cart.php?err=success&mensaje=gracias_comprar");
+			exit();
+		}
+		header("Location:".MI_RUTA."cart.php?err=fail&mensaje=fail_comprar");
+	}
+
 	function iniciarSesion(){
 		$nomUsuario = (isset($_REQUEST['user']))?$_REQUEST['user']:"";
 		$contrasena = (isset($_REQUEST['pass']))?$_REQUEST['pass']:"";
@@ -339,6 +413,45 @@
 		else{
 			$link = $_SERVER['HTTP_REFERER'];
 			header("Location:".$link);
+		}
+	}
+
+	function enviarCorreo(){
+		if(isset($_REQUEST["txt_nombre"]) && isset($_REQUEST["txt_email"]) && isset($_REQUEST["txt_mensaje"])){
+
+			$nombre = $_REQUEST["txt_nombre"];
+			$email = $_REQUEST["txt_email"];
+			$mensaje = $_REQUEST["txt_mensaje"];
+
+			$correo = new PHPMailer();
+			$correo->Host='localhost';
+			$correo->From='bheftye92@gmail.com';
+			$correo->FromName='Raku';
+			$correo->AddCC='enriqueta.c@uady.mx, copia';    
+			$correo->IsHTML(true);
+			$correo->CharSet='UTF-8';
+			$correo->Subject='Mensaje del sitio Raku Tienda';
+			$correo->AddAddress("bheftye92@gmail.com");
+			$correo->Body='<!doctype html>
+							<html xmlns="http://www.w3.org/1999/xhtml">
+							<head>
+							<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+							<title>Correo de Contacto Raku</title>
+							</head>
+							<body>
+								<h1>Mensaje de contacto:</h1><br>
+								<p>Nombre: '.$nombre.'</p><br>
+								<p>E-mail: '.$nombre.'</p><br>
+								<p>Mensaje: '.$mensaje.'</p>
+							</body>
+							</html>
+									';
+			if($correo->Send()){
+				header("Location:".MI_RUTA."contacto.php?err=success&mensaje=E-MAIL%20SENT");
+			}
+			else{
+				header("Location:".MI_RUTA."contacto.php?err=fail&mensaje=E-MAIL%20FAILED");
+			}
 		}
 	}
 
